@@ -3,21 +3,22 @@
 MYSQL_HOST=${MYSQL_HOST:-db}
 
 cd /mnt/html
-#rm -rf * .*
-#mkdir git || exit 1
-#mkdir content || exit 1
-cp /data/nginx_config/* /mnt/nginx_config
-
-if [ -d /mnt/html/nginx_config ]; then
-  cp /mnt/html/nginx_config/* /mnt/nginx_config
-fi
-
-if [ -d /mnt/html/php_config ]; then
-  cp /mnt/html/nginx_config/* /mnt/php_config
-fi
+rm -rf * .*
+mkdir git || exit 1
 
 cd git
-#git clone $GIT_REPOSITORY . || exit 1
+git clone $GIT_REPOSITORY . || exit 1
+
+cp /data/nginx_config/* /mnt/nginx_config
+
+if [ -d /mnt/html/git/nginx_config ]; then
+  cp /mnt/html/git/nginx_config/* /mnt/nginx_config
+fi
+
+if [ -d /mnt/html/git/php_config ]; then
+  cp /mnt/html/git/nginx_config/* /mnt/php_config
+fi
+
 cd srv || exit 1
 for d in $(find . -type d -maxdepth 1 ! -name '.'); do
   d=$(basename $d);
