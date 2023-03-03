@@ -2,6 +2,10 @@
 x-common-env: &cenv
     MYSQL_ROOT_PASSWORD: hjgg786HGJv7932
     GIT_REPOSITORY: https://github.com/mhus/coolweb-test-sample.git
+    GIT_BRANCH:
+    GIT_USER:
+    GIT_TOKEN:
+    GIT_PRIVATE_KEY:
 
 services:
     db:

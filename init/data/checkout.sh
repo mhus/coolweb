@@ -1,13 +1,23 @@
 #!/bin/sh
 
 MYSQL_HOST=${MYSQL_HOST:-db}
+GIT_BRANCH=${GIT_BRANCH:-main}
+
+if [ ! -z "$GIT_PRIVATE_KEY" ]; then
+  mkdir ~/.ssh
+  echo $GIT_PRIVATE_KEY > ~/.ssh/id_rsa
+fi
+
+if [ ! -z "$GIT_TOKEN" ]; then
+  GIT_REPOSITORY=$(echo $GIT_REPOSITORY|envsubst '$GIT_TOKEN:$GIT_USER')
+fi
 
 cd /mnt/html
 rm -rf * .*
 mkdir git || exit 1
 
 cd git
-git clone $GIT_REPOSITORY . || exit 1
+git clone -b $GIT_BRANCH $GIT_REPOSITORY . || exit 1
 
 cp /data/nginx_config/* /mnt/nginx_config
 
